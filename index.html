@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🎄 CECYTEM - Navidad</title>
+
+<style>
+
+/* ============== DISEÑO NAVIDEÑO GENERAL ============== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e6f0fa 0%, #d4e4f7 50%, #eaf4eb 100%);
+    color: #2c2c2c;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ❄️ Copos de nieve animados */
+body::before,
+body::after,
+.copo1, .copo2, .copo3 {
+    content: "❄";
+    position: fixed;
+    color: #b8d4f0;
+    font-size: 24px;
+    animation: caer 15s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+body::before { left: 10%; animation-delay: 0s; }
+body::after  { left: 50%; animation-delay: 5s; }
+.copo1 { left: 80%; animation-delay: 3s; font-size: 30px; }
+.copo2 { left: 30%; animation-delay: 7s; font-size: 18px; }
+.copo3 { left: 70%; animation-delay: 10s; font-size: 26px; }
+
+@keyframes caer {
+    0%   { top: -50px; opacity: 1; transform: translateX(0); }
+    100% { top: 100vh; opacity: 0.3; transform: translateX(30px); }
+}
+
+/* ============== ENCABEZADO ============== */
+header {
+    background: linear-gradient(90deg, #9c1212 0%, #b71c1c 50%, #9c1212 100%);
+    padding: 22px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 15px rgba(156, 18, 18, 0.35);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 4px solid #d4af37;
+}
+
+.logo {
+    font-size: 42px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    color: #ffeb3b;
+}
+
+/* ============== MENÚ NAVIDEÑO ============== */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+nav button {
+    border: 2px solid transparent;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+nav button:hover,
+nav button.seleccionado {
+    background: rgba(255,255,255,0.25);
+    border-color: #ffd700;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+nav button.seleccionado {
+    background: #d4af37;
+    color: #2b0000;
+}
+
+/* ============== PÁGINAS ============== */
+.pagina {
+    display: none;
+    width: 90%;
+    max-width: 1100px;
+    min-height: 400px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #ffffff;
+    border: 3px solid transparent;
+    border-image: linear-gradient(90deg, #9c1212, #d4af37, #176b50, #d4af37, #9c1212) 1;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 10;
+}
+
+.pagina.activa {
+    display: block;
+    animation: aparecer 0.5s ease forwards;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: #9c1212;
+    font-size: 28px;
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #d4af37;
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #3a3a3a;
+}
+
+/* ============== CONTENIDO ============== */
+.contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.texto {
+    flex: 1;
+    min-width: 250px;
+}
+
+.personaje {
+    width: 190px;
+    height: 230px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+/* ============== LISTA ============== */
+ul {
+    margin: 20px 35px;
+    line-height: 2;
+    font-size: 17px;
+    list-style: none;
+}
+
+ul li::before {
+    content: "🎄";
+    margin-right: 12px;
+}
+
+/* ============== FORMULARIO ============== */
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #fffdf5;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #9c1212;
+    box-shadow: 0 0 0 4px rgba(156, 18, 18, 0.1);
+}
+
+textarea {
+    height: 130px;
+    resize: vertical;
+}
+
+.enviar {
+    background: linear-gradient(90deg, #9c1212, #b71c1c);
+    color: white;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(156, 18, 18, 0.3);
+}
+
+.enviar:hover {
+    background: linear-gradient(90deg, #7a0e0e, #9c1212);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(156, 18, 18, 0.4);
+}
+
+/* ============== RESEÑAS ============== */
+.resena {
+    background: linear-gradient(135deg, #fff8e1, #fff3c4);
+    padding: 18px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border-left: 4px solid #d4af37;
+    overflow-wrap: anywhere;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.05);
+}
+
+.resena strong {
+    color: #9c1212;
+    font-size: 17px;
+}
+
+/* ============== PIE DE PÁGINA ============== */
+footer {
+    background: linear-gradient(90deg, #176b50, #0f5c44, #176b50);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    margin-top: 40px;
+    border-top: 4px solid #d4af37;
+    position: relative;
+    z-index: 10;
+}
+
+footer p {
+    color: #fff;
+    font-size: 16px;
+}
+
+/* ============== RESPONSIVO ============== */
+@media(max-width: 700px) {
+    header {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 30px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .pagina {
+        padding: 22px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ❄️ Elementos de nieve decorativos -->
+<div class="copo1"></div>
+<div class="copo2"></div>
+<div class="copo3"></div>
+
+<!-- 🎄 ENCABEZADO -->
+<header>
+
+    <h1 class="logo">🎄 <span>CECYTEM</span> 🎁</h1>
+
+    <nav>
+        <button class="seleccionado"
+        onclick="mostrarPagina('inicio', this)">
+            🏠 Inicio
+        </button>
+
+        <button onclick="mostrarPagina('nosotros', this)">
+            ¿Quiénes somos?
+        </button>
+
+        <button onclick="mostrarPagina('formacion', this)">
+            📚 Formación profesional
+        </button>
+
+        <button onclick="mostrarPagina('resenas', this)">
+            ✍️ Reseñas
+        </button>
+    </nav>
+
+</header>
+
+
+<!-- PÁGINA 1: INICIO -->
+<section id="inicio" class="pagina activa">
+
+    <div class="contenido">
+
+        <div class="texto">
+
+            <h2>🎊 ¡Feliz Navidad y Bienvenido!</h2>
+
+            <p>
+                Conoce nuestra institución y descubre
+                todas las oportunidades que tenemos
+                para ti en esta temporada tan especial.
+            </p>
+
+            <br>
+
+            <h2>🎨 Animación Digital y Programación</h2>
+            <p>✨ Creando el futuro con creatividad y tecnología</p>
+
+        </div>
+
+        <img src="https://i.pinimg.com/736x/eb/a5/9b/eba59b36e1a48b381c0986489a05b0ef.jpg"
+        class="personaje"
+        alt="Personaje de bienvenida">
+
+    </div>
+
+</section>
+
+
+<!-- PÁGINA 2: QUIÉNES SOMOS -->
+<section id="nosotros" class="pagina">
+
+    <div class="contenido">
+
+        <div class="texto">
+
+            <h2>🎅 ¿Quiénes somos?</h2>
+
+            <p>
+                Somos una institución educativa
+                comprometida con la formación
+                académica y profesional de nuestros
+                estudiantes.
+
+                Nuestro objetivo es brindar educación
+                de calidad y preparar a los jóvenes
+                para su futuro, con valores y excelencia.
+            </p>
+
+            <br>
+
+            <p>
+                🎉 ¡Esta Navidad, construyamos juntos un mejor futuro!
+            </p>
+
+        </div>
+
+        <img src="https://i.pinimg.com/1200x/54/ee/bf/54eebf34b99e357f6bd7533e9332ccd1.jpg"
+        class="personaje"
+        alt="Personaje">
+
+    </div>
+
+</section>
+
+
+<!-- PÁGINA 3: FORMACIÓN PROFESIONAL -->
+<section id="formacion" class="pagina">
+
+    <h2>📖 Formación profesional</h2>
+
+    <h2>🎨 Animación Digital y Programación</h2>
+
+    <p>
+        Esta especialidad permite desarrollar
+        habilidades creativas y tecnológicas
+        mediante el diseño, la animación y
+        la programación. ¡Dale vida a tus ideas!
+    </p>
+
+    <br>
+
+    <h2>🌟 Áreas de aprendizaje</h2>
+
+    <ul>
+        <li>Diseño digital.</li>
+        <li>Creación de páginas web.</li>
+        <li>Animación digital.</li>
+        <li>Programación.</li>
+        <li>Desarrollo de proyectos tecnológicos.</li>
+    </ul>
+
+    <img src="https://i.pinimg.com/736x/eb/56/aa/eb56aa8227f7ddb5309c868613c36ee5.jpg"
+    class="personaje"
+    alt="Personaje de la especialidad">
+
+</section>
+
+
+<!-- PÁGINA 4: RESEÑAS -->
+<section id="resenas" class="pagina">
+
+    <h2>✍️ Formulario de reseñas</h2>
+
+    <p>
+        Comparte tu opinión sobre nuestra
+        institución y nuestra página web.
+        ¡Tu opinión es un gran regalo para nosotros! 🎁
+    </p>
+
+    <form id="formulario">
+
+        <input
+        type="text"
+        id="nombre"
+        placeholder="Tu nombre..."
+        required>
+
+        <textarea
+        id="comentario"
+        placeholder="Escribe tu mensaje aquí..."
+        required></textarea>
+
+        <button type="submit" class="enviar">
+            🎄 Enviar reseña
+        </button>
+
+    </form>
+
+    <br>
+
+    <h2>💬 Reseñas recibidas</h2>
+
+    <div id="resultado"></div>
+
+</section>
+
+
+<!-- PIE DE PÁGINA -->
+<footer>
+
+    <p>🎄 CECYTEM | Página web escolar 🎁</p>
+    <p style="margin-top:8px; font-size:14px;">¡Feliz Navidad y próspero Año Nuevo! ❄️</p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+<script>
+
+// CAMBIAR ENTRE PÁGINAS
+function mostrarPagina(id, boton) {
+
+    let paginas = document.querySelectorAll(".pagina");
+
+    paginas.forEach(function(pagina) {
+        pagina.classList.remove("activa");
+    });
+
+    document.getElementById(id).classList.add("activa");
+
+    let botones = document.querySelectorAll("nav button");
+
+    botones.forEach(function(btn) {
+        btn.classList.remove("seleccionado");
+    });
+
+    boton.classList.add("seleccionado");
+
+    window.scrollTo(0, 0);
+}
+
+
+// FORMULARIO DE RESEÑAS
+document.getElementById("formulario")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let nombre = document.getElementById("nombre").value;
+    let comentario = document.getElementById("comentario").value;
+
+    let nuevaResena = document.createElement("div");
+    nuevaResena.className = "resena";
+
+    let titulo = document.createElement("strong");
+    titulo.textContent = "🎁 " + nombre;
+
+    let texto = document.createElement("p");
+    texto.textContent = comentario;
+
+    nuevaResena.appendChild(titulo);
+    nuevaResena.appendChild(texto);
+
+    document.getElementById("resultado").appendChild(nuevaResena);
+
+    document.getElementById("formulario").reset();
+
+});
+
+</script>
+
+</body>
+</html>
